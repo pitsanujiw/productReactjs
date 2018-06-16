@@ -9,23 +9,25 @@ class App extends Component {
       { id: 4, name: "Product#4", amount: 7, buy: 0 },
       { id: 5, name: "Product#5", amount: 6, buy: 0 }
     ]
-  }
+  };
   /**
    *  ChangeBuy @method
    */
   ChangeBuy = (id, amount) => {
-    const { products } = this.state;
-    const index = products.findIndex(product => product.id === id);
-    const product = products[index];
-
-    this.setState({
-      products: [
-        ...products.slice(0, index),
-        {
-          ...product, buy: product.buy + amount
-        },
-        ...products.slice(index + 1)
-      ]
+    this.setState(prevState => {
+      const { products } = prevState;
+      const index = products.findIndex(product => product.id === id);
+      const product = products[index];
+      return {
+        products: [
+          ...products.slice(0, index),
+          {
+            ...product,
+            buy: product.buy + amount
+          },
+          ...products.slice(index + 1)
+        ]
+      };
     });
     console.log(this.state);
   };
